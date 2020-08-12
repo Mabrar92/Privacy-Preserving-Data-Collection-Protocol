@@ -2,13 +2,13 @@
 """
 
 This code is developed by Muhammad Abrar.
-Horizontal-Sliced Permuted Partition (H-SPP) Anatomy based Algorithm
+
 Command Line Usage : python HSPP_Anatomy.py Dataset[a|i] Attributes[7|14] Partitions{p} L-Diversity[L]   
 Example usage: python Hspp_Anatomy.py a 7 50 10"
 
 Dataset = INFORMS | Adults
 No of Attributes = 7 | 14
-partitions= Number of L-Diverse Tables
+
 
 
 """
@@ -27,7 +27,6 @@ import sys
 
 
 
-"the code you want to test stays here"
                      # Reading the dataset
 
 def preproccess_Informs():
@@ -71,9 +70,6 @@ def preprocess_adults():
     newdata.rename({'index': 'UID'}, axis=1, inplace=True);    
     return newdata,cvs_data
 
-""" STEP 2 :  do partition such that there are L distinct SAFPs in each partiton.
-                        Inputs p => partition , L=> L diversity  nunique() """
-                        
                         
 def preprocess_adults_7():
     I_Label=['age','workclass','education','matrital_status','race','sex','native_country','SA']
@@ -140,24 +136,14 @@ def sp_anatomy(data,p,L):
     start_row2=0;
     start_row3=0;
     start_row4=0;
-#L IT=pd.DataFrame((DATA[0:length]),columns=['UID','GUID'])
      
     
     lit= [];
-#""" STEP 3 QA Permuted Partitions for key, value in dict.iteritems():
-#    temp = [key,value]
-#    dictlist.append(temp)"""
-
-#    writer = pd.ExcelWriter('SP_Anatomy.xlsx', engine='xlsxwriter')
     writer = pd.ExcelWriter('MST_TAble.xlsx', engine='xlsxwriter')
     for i in range(length): 
     
         df=pd.DataFrame.from_records(list_of_dfs[i])
     
-    #df['SAFP'] = np.roll(df['SAFP'], random.randint(0,df['SAFP'].nunique())) #permuting Sensitive Attribute Randomly (Not mentioned in the algorithm)
-
-    #if df['SAFP'].nunique() > L:   #Checking L-Diversity in each partition
-        #print(df['SAFP'].nunique())
         rand=random.randint(0,(df.shape[1]-1))   # randomly selecting Quassi Identifier in the dataset        
         df.iloc[:,rand]= np.random.permutation(df.iloc[:,rand]) #iloc to index dataframe with integer , randomly permuting the selected quassi identifier
     
@@ -181,24 +167,11 @@ def sp_anatomy(data,p,L):
         lit1=df.iloc[SL,0:2]
         lit1=lit1.reset_index()
         lit1.columns = ['','Second Leader']
-    #litt=pd.DataFrame.from_records(lit)          
-   
-    #Qpt = df.drop(df.columns[0:-1] ,axis=1,inplace=False)       # Drop all columns of df except SAFP and store that SAFP column in QPT 
-        
-    #Qpt['count'] = Qpt.groupby(['SAFP'])['SAFP'].transform('count')     # Add another column of count that counts    
-        
-    #df.drop(df.columns[-1],axis=1,inplace=True)
-        
-        
-       
         df.to_excel(writer,sheet_name=('Validation Table'), index=False , startrow=start_row1)
         
         start_row1 = start_row1 + len(df) + 20;
         alldata=alldata.append(df,True);
         df.drop(df.columns[0],axis=1,inplace=True)
-    
-    
-   
         df.to_excel(writer,sheet_name=('MST'), index=False , startrow=start_row2)  #, startcol=df.shape[1]+3)
         
         start_row2 = start_row2 + len(df) + 20;
@@ -222,7 +195,6 @@ def cvs(cvs_data,alldata,length,size,csii):
     start_row4=0;
     start_row5=0;
     fl=alldata
-    
     csi=pd.DataFrame();
     sl=pd.DataFrame();
     a=pd.DataFrame();
@@ -266,24 +238,12 @@ def cvs(cvs_data,alldata,length,size,csii):
         spt['Count'] = spt.groupby('SA')['SA'].transform('count')
         #spt['Unique']=spt['SA'].unique()
         spt.drop_duplicates(subset=['SA'],inplace=True)
-
-        #spt=spt.groupby('Unique')['SA'].apply(','.join).reset_index();
-   
-
-    
-    
-  
-#    a['value']=a.unique.nunique()
-    
-   #spt.groupby(['Unique'], as_index = False).agg({'SA': ','.join})
     
         dfl.to_excel(writer,sheet_name=('Final_dataset'), index=False , startrow=start_row3) #,startcol=dfl.shape[1]+3)
         start_row3 = start_row3 + len(dfl) + 50;
     
         spt.to_excel(writer,sheet_name=('Final_dataset'), index=False , startrow=start_row4 , startcol=dfl.shape[1]+5) #,startcol=dfl.shape[1]+3)
         start_row4 = start_row4 + len(dfl) + 50;
-  # a.to_excel(writer,sheet_name=('SPT'), index=False , startrow=start_row5) #,startcol=dfl.shape[1]+3)
-  #  start_row5 = start_row5 + len(dfl) + 50;
     writer.save()
 
         
