@@ -2,6 +2,9 @@
 This is the offcial Thesis Work of Muhammad Abrar in Data Privacy under the supervision of Dr.Adeel Anjum from Comsats University Islamabad.
 The code is written in python 3.0.
 
+Sample Command Line Usage : python Eppdc.py a 7 50 2
+
+
 #Instructions : (Open In Raw)
 
 Eppdc.py is the main module which takes the following Arguments; Dataset[a|i] Attributes[7|14] Partitions{p} Counterfeit_Sensitive_Values [CSI] 
@@ -17,15 +20,7 @@ Eppdc.py is the main module which takes the following Arguments; Dataset[a|i] At
                                                                Number of l-diverse groups for chosen dataset           |  
                                                                                                                        v
                                                                        Number of Counterfeit Sensitive Values provided to Second Leader by Dataholders
-                                                                       
 
 
-Sample Command Line Usage : python Eppdc.py a 7 50 2
-
-
-OutPut FIles : 
-
-All data. xlsx
-MST_Table.xlsx
-SLandFL_datasets.xlsx
+#OutPut FIles :All data.xlsx, MST_Table.xlsx SLandFL_datasets.xlsx
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
