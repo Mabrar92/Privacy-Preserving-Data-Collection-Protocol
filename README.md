@@ -22,4 +22,10 @@ Eppdc.py is the main module which takes the following Arguments; Dataset[a|i] At
 
 Sample Command Line Usage : python Eppdc.py a 7 50 2
 
+
+OutPut FIles : 
+
+All data. xlsx
+MST_Table.xlsx
+SLandFL_datasets.xlsx
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
